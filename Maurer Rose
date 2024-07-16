@@ -1,0 +1,37 @@
+// Grasshopper Script Instance
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
+
+using Rhino;
+using Rhino.Geometry;
+
+using Grasshopper;
+using Grasshopper.Kernel;
+using Grasshopper.Kernel.Data;
+using Grasshopper.Kernel.Types;
+
+public class Script_Instance : GH_ScriptInstance
+{
+  
+  
+  private void RunScript(int k, double d, double n, double c, out object a)
+{
+    List<Point3d> points = new List<Point3d>();
+
+    for (int i = 0; i < n; i++)
+    {
+        double theta = i * d * Math.PI / 180.0;
+        double r = Math.Sin(k * theta);
+        double x = r * Math.Cos(theta);
+        double y = r * Math.Sin(theta);
+        double z = c * Math.Sin(i * d * Math.PI / 180.0); // Sine wave in z
+        points.Add(new Point3d(x, y, z));
+    }
+
+    PolylineCurve curve = new PolylineCurve(points);
+    a = curve;
+}
+
+}
